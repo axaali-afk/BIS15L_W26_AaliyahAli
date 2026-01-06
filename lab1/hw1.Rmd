@@ -1,6 +1,6 @@
 ---
 title: "Lab 1 Homework"
-author: "Your Name Here"
+author: "Aaliyah Ali"
 date: "`r Sys.Date()`"
 output:
   html_document: 
@@ -11,14 +11,19 @@ output:
 Answer the following questions and/or complete the exercises in RMarkdown. Please embed all of your code and push the final work to your repository. Your report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run.  
 
 **1. Please tell us why you are taking BIS 15L.**
+I am taking this class because I want to take BIS 180L for my major and this is a prerequisite for that class.
 
 **2. Do you have any coding experience? If yes, please tell us what languages you have coded in and your level of experience.**
+Yes, I have experience coding in Python. In high school, I interned at Berkeley Labs, and one of the years I was an intern we had to learn how to do basic data visualization and statistical analysis in Python. We read mostly genomics data through Python. I would describe my level of experience as somewhere between beginner to intermediate, since I'm a little rusty.
 
 **3. Navigate to the `datascibiol` repository on GitHub. Notice that near the bottom there is a description of the repository. You want something like this on your repository! It is built by making edits to the `README.md` file using RMarkdown. Edit your repository's `README.md` file so that you have an informative description, including your email address. Be creative! You don't need to just copy mine. There are lots of examples online.**  
+Done.
 
 **4. Please put a link to your GitHub repository below.**
+https://github.com/axaali-afk/BIS15L_W26_AaliyahAli
 
 **5. Make sure that your repository includes the practice file `dummy_push` from lab 1.2. If you have not done so already, please add your name to this file, knit it, and push it to your repository.**  
+Done.
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  

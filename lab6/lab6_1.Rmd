@@ -168,13 +168,18 @@ summary(mammals)
 ```
 
 ```{r}
-
+mammals %>%
+  select(genus, species, newborn) %>%
+  mutate(newborn_new=ifelse(newborn == -999.00, NA, newborn))
 ```
 
 ## Practice
 1. Following the example above, convert all -999 values in the mammals dataframe to NA.
 ```{r}
-
+mammals %>%
+  mutate(across(c(mass, wean_mass, gestation, max_life, newborn, weaning, litter_size, afr, litters_year),
+                ~ifelse(.==-999, NA, .))) 
+  
 ```
 
 ```{r}
@@ -182,6 +187,11 @@ summary(mammals)
 ```
 
 2. In the mammals data, make a new column `mass_kg` that that converts mass from grams to kilograms. Select the columns genus, species, mass, and mass_kg, and arrange the data by mass_kg in descending order. What is the common name for the species with the highest mass?  
+```{r}
+mammals %>%
+  mutate(mass_kg=mass)
+  
+```
 ```{r}
 
 ```

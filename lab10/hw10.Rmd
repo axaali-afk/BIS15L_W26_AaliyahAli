@@ -34,7 +34,7 @@ sharks <-
 ## Questions
 1. Are there any "hotspots" for shark incidents in California? Show the top five counties with the most incidents.
 ```{r}
-
+sharks
 ```
 
 2.  Make a plot that shows the total number of incidents per county.

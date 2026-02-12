@@ -39,7 +39,7 @@ gapminder <- read_csv("data/gapminder.csv") %>%
 
 1. Use the function(s) of your choice to get an idea of the overall structure of the data, including its dimensions, column names, classes, etc. 
 ```{r}
-
+glimpse(gapminder)
 ```
 
 2. How many countries are represented in this dataset?

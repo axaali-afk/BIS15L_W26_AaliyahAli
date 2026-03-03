@@ -204,41 +204,10 @@ polar_bears
 
 10. (10 points) Build a simple shiny app that shows the range of `un_creat_ratio` values for both populations. The user should be able to select the fill variable and choose between sex, mating, age_class, denning, and fasting. Please use the code chunk below so that your exam knits.
 ```{r, eval=F, echo=T}
-ui <- dashboardPage(
-  dashboardHeader(title="The Range of Urea Nitrogen/Creatinine Ratio By Population"),
-  dashboardSidebar(
-    selectInput("y",
-              "Select Population",
-              choices = c("popn"),
-              selected = "popn")
-  ),
+```
 
-  dashboardBody(
-     plotOutput("plot", width="600px", height= "500px")
- 
-  )
-  
-  
-)
 
-server <- function(input, output, session) {
-  
-  output$plot <- renderPlot({
-    
-    elephants %>% 
-      filter(un_creat_ratio!="NA") %>% 
-      ggplot(aes(x = un_creat_ratio,
-                 y = .data[[input$y]],
-                 fill = popn))+
-      geom_boxplot(alpha=0.75)+
-      labs(title="Range of Variables by Population",
-           x="Population",
-           fill="Population")+
-      theme_minimal()
-  })
-}
-
-shinyApp(ui, server)
+```{r, eval=F, echo=T}
 ```
 
 ## Submit the Midterm

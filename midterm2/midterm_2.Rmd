@@ -101,14 +101,22 @@ polar_bears %>%
 
 ##It is not evenly distributd by sex
 ```{r}
-#It is not evenly distributd by sex
-polar_bears %>%
-  count(sex) %>%
-  ggplot(aes(x=sex, y=n, fill=sex))+
-  geom_col(alpha=0.6)+
-  labs(title="Number of Polar Bears Sampled by Sex",
-       x="Sex",
-       y="Number of Polar Bears Sampled")
+#In the CS population, the distribution is even. In the SB population, it looks like there were more females sampled.
+sex_count <- polar_bears %>%
+  group_by(popn, sex) %>%
+  summarise(count = n()) %>%
+  arrange(popn, sex)
+```
+```{r}
+ggplot(sex_count, aes(x = popn, y = count, fill = sex)) +
+  geom_col(alpha=0.6) +
+  labs(
+    title = "Polar Bear Sampling by Sex and Population",
+    x = "Population",
+    y = "Number of Polar Bears",
+    fill = "Sex"
+  ) +
+  theme_minimal()
 ```
 
 
@@ -118,11 +126,22 @@ polar_bears <- polar_bears %>%
   separate(capture_date, into=c("year", "month", "day"),sep="-")
 ```
 ```{r}
-##polar_bears %>%
-##count(year)%>%
-##ggplot(data=polar_bears,
- ##mapping=aes(x=year, y=n))+
- ##geom_line()
+polar_bears_by_year <- polar_bears %>%
+  group_by(year, popn) %>%
+  summarise(count = n()) %>%
+  arrange(year, popn)
+```
+```{r}
+ggplot(polar_bears_by_year, aes(x = year, y = count, color = popn, group = popn)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 5) +
+  labs(
+    title = "Polar Bear Sampling by Year and Population",
+    x = "Year",
+    y = "Number of Bears Sampled",
+    color = "Population"
+  ) +
+  theme_minimal()
 ```
 
 5. (2 points) What are the min, median, mean, and max values for `urea_nitrogen` and `creatinine`?
@@ -144,23 +163,8 @@ names(polar_bears)
 
 6. (3 points) As explained above, the ratio of `urea_nitrogen` to `creatinine` is used as an index of fasting. To calculate the ratio, we need to multiply `urea_nitrogen` by 0.466, then divide by `creatinine`. Create a new variable called `un_creat_ratio` that contains this calculation.
 ```{r}
-un_creat_ratio <- (polar_bears$urea_nitrogen*0.466)/polar_bears$creatinine
-bear_id <- polar_bears$bear_id
-year <- polar_bears$year
-month <- polar_bears$month
-day <- polar_bears$day
-popn <- polar_bears$popn
-sex <- polar_bears$sex
-age_class <- polar_bears$age_class
-mating <- polar_bears$mating
-denning <- polar_bears$denning
-lat <- polar_bears$lat
-long <- polar_bears$long
-urea_nitrogen <- polar_bears$urea_nitrogen
-creatinine <- polar_bears$creatinine
-```
-```{r}
-polar_bears <- tibble(bear_id,    year, month,  day,  popn, sex, age_class, mating, denning, long, urea_nitrogen, creatinine, un_creat_ratio)
+polar_bears <- polar_bears %>%
+  mutate(un_creat_ratio = (urea_nitrogen * 0.466) / creatinine)
 ```
 ```{r}
 polar_bears

@@ -197,21 +197,94 @@ polar_bears
 
 ##PRESSED FOR TIME, LAST COLUMN DO NOT CHANGE CODE HERE AALIYAH
 8. (6 points) The authors found that the number of fasting bears increased in the SB population but decreased in the CS population. Make a plot(s) that shows the number of fasting bears by year for both populations to visualize this trend.
-```{r}
 
+```{r}
+fasting_counts <- polar_bears %>%
+  filter(fasting == "fasting") %>%
+  group_by(popn, year) %>%           
+  summarize(num_fasting = n(), .groups="drop")
+```
+
+```{r}
+fasting_counts %>%
+ ggplot(aes(x = year, y = num_fasting, color = popn)) +
+  geom_line(linewidth=1) +
+  geom_point()+
+  labs(
+    title = "Number of Fasting Bears by Year",
+    x = "Year",
+    y = "Number of Fasting Bears",
+    color = "Population"
+  ) +
+  theme_minimal() #the line showed up once, and I re-ran it to make sure and the line never appeared again...?
 ```
 
 9. (8 points) Where are the polar bears used in this study located? Make a static (not leaflet) distribution map that shows the locations of  bears by population. (hint: use `color=popn` in the `aes()` of `geom_point()`)
 ```{r}
+polar_bears %>% 
+  select(lat, long) %>% 
+  summary()
+```
+```{r}
+lat <- c(62.46, 72.70)
+long <- c(-172.2, -134.8)
+bbox <- make_bbox(long, lat, f=0.03)
 
 ```
 
+```{r}
+map1 <- get_stadiamap(bbox, maptype="stamen_terrain", zoom = 7)
+```
+```{r}
+ggmap(map1)
+```
+```{r}
+ggmap(map1) +
+  geom_point(data=polar_bears, aes(long, lat,color=popn),  size=1, alpha=0.8)+
+  labs(x="Longitude", y="Latitude", title="Polar Bear Map")
+```
 10. (10 points) Build a simple shiny app that shows the range of `un_creat_ratio` values for both populations. The user should be able to select the fill variable and choose between sex, mating, age_class, denning, and fasting. Please use the code chunk below so that your exam knits.
-```{r, eval=F, echo=T}
-```
-
 
 ```{r, eval=F, echo=T}
+library(shiny)
+
+ui <- fluidPage(
+   theme=shinythemes::shinytheme("cosmo"),
+   selectInput("y",
+              "Select Polar Bear Variable",
+              choices = c("sex",
+                          "mating",
+                          "age_class",
+                          "denning",
+                          "fasting"),
+              selected = "sex"),
+  
+  plotOutput("plot", width="600px", height= "500px")
+)
+
+server <- function(input, output, session) {
+   output$plot <- renderPlot({
+    
+    polar_bears %>% 
+filter(!is.na(un_creat_ratio)) %>% 
+  filter(!is.na(.data[[input$y]])) %>%
+       ggplot(aes(x = popn,
+                 y=un_creat_ratio,
+                 fill = .data[[input$y]]))+
+      geom_boxplot(alpha=0.75)+
+      labs(title="Range of un_creat_ratio by Population",
+           x="Population",
+           y="un_creat_ratio",
+           fill=input$y)+
+      theme_minimal()
+  })
+}
+
+shinyApp(ui, server)
+  
+ 
+  
+)
 ```
 
 ## Submit the Midterm

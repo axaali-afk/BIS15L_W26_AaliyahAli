@@ -20,10 +20,10 @@ Make sure to use the formatting conventions of RMarkdown to make your report nea
 
 ### Install Biostrings
 ```{r,bquiet=TRUE, message=FALSE, warning=FALSE}
-#if (!requireNamespace("BiocManager", quietly = TRUE))
-#  install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+ install.packages("BiocManager")
 
-#BiocManager::install("Biostrings")
+BiocManager::install("Biostrings")
 ```
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}

@@ -283,8 +283,7 @@ filter(!is.na(un_creat_ratio)) %>%
 shinyApp(ui, server)
   
  
-  
-)
+
 ```
 
 ## Submit the Midterm
